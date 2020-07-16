@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -11,7 +11,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=True, nullable=False)
     description = db.Column(db.String(100), unique=False, nullable=False,)
-    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+    creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 class DocumentType(db.Model):
     __tablename__ = 'document_type'
@@ -28,13 +28,16 @@ class DocumentNumber(db.Model):
     description = db.Column(db.String(100), nullable=False,)
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 
-@app.route('/')
+@app.route('/', methods=["POST", "GET"])
 def home():
-    return render_template("index.html", content="This is the homepage")
-
-@app.route('/projects')
-def projects():
-    return render_template("projects.html", content="Here are the projects")
+    if request.method == "POST":
+        user = request.form["nm"]
+        return redirect(url_for("projects", test_content=user))
+    else:
+        return render_template("index.html", content="This is the homepage")
+@app.route('/projects/<test_content>')
+def projects(test_content):
+    return render_template("projects.html", content=test_content)
 
 @app.route('/doctypes')
 def doc_types():
@@ -42,5 +45,6 @@ def doc_types():
 
 
 if __name__ == "__main__":
+    db.create_all()
     app.run(debug=True)
 
