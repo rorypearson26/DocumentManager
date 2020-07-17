@@ -34,15 +34,16 @@ def home():
         user = request.form["nm"]
         return redirect(url_for("projects", test_content=user))
     else:
-        return render_template("index.html", content="This is the homepage")
-@app.route('/projects/<test_content>')
-def projects(test_content):
-    return render_template("projects.html", content=test_content)
+        return render_template("index.html", proj_vals=Project.query.all(),
+                               doc_type_vals=DocumentType.query.all(),
+                               content="This is the homepage")
+@app.route('/projects')
+def projects():
+    return render_template("projects.html")
 
 @app.route('/doctypes')
 def doc_types():
     return render_template("documenttypes.html", content="Here are the doc types")
-
 
 if __name__ == "__main__":
     db.create_all()

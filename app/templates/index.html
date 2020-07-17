@@ -1,8 +1,36 @@
 {% extends "base.html"%}
 {% block title %}Home Page{% endblock %}
 {% block content %}
-<form action="#" method="post">
-    <p><input type="text" name="nm" /></p>
-    <p><input type="submit" value="submit" /></p>
-</form>
+<div class="container mt-4">
+  <div class="d-flex justify-content-center">
+    <div class="col col-md-4 col-lg-5">
+      <select class="form-control" id="proj_id">
+        <option selected disabled hidden>Select Project:</option>
+        {% for item in proj_vals %}
+          <option>{{item.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col col-md-4 col-lg-5">
+      <select class="form-control" id="doc_type_id">
+        <option selected disabled hidden>Select File Type:</option>
+        {% for item in doc_type_vals %}
+          <option>{{item.initials}}{{" | "}}{{item.description}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+</div>
+<div class="container mt-4">
+    <div class="d-flex justify-content-center">
+        <div class="col col-md-8 col-lg-10">
+          <div class="input-group-append">
+            <input type="text" class="form-control" placeholder="Input document name / description" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Create</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
