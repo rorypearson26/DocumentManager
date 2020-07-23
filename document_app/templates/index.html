@@ -1,0 +1,63 @@
+{% extends "base.html"%}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+
+<div class="container-fluid mt-4 p-4">
+    <div class="row">
+        <div class="col-lg-9">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Type</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Project</th>
+                  <th scope="col">Creation Date</th>
+                </tr>
+              </thead>
+              <body>
+                <tr>
+                {% for num in doc_nums %}
+                    <tr>
+                        <td>{{ num.doc_type.initials }}</td>
+                        <td>{{ num.doc_name }}</td>
+                        <td>{{ num.description }}</td>
+                        <td>{{ num.project.name }}</td>
+                        <td>{{ num.creation_date.strftime('%d %B %Y | %H:%M') }}</td>
+                    </tr>
+                {% endfor %}
+              </body>
+            </table>
+        </div>
+        <div class="col-lg-3 border">
+            <form method="POST" action="" autocomplete="off">
+                {{ form.hidden_tag() }}
+
+                <legend class="border-bottom mb-4">
+                    Create New Document Number
+                </legend>
+                <div class="form-group">
+                    {{ form.project.label(class="form-control-label") }}
+                    {{ form.project(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.doc_type.label(class="form-control-label") }}
+                    {{ form.doc_type(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.description.label(class="form-control-label") }}
+                    {{ form.description(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-dark") }}
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}

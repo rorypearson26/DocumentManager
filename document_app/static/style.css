@@ -6,4 +6,9 @@ h1 {
   color: rgb(0, 0, 0);
    font-variant: small-caps;
    font-family: Roboto;
+   font-size: 300%;
+}
+
+.table td, .table th {
+   text-align: center;
 }
