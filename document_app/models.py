@@ -4,15 +4,25 @@ from document_app import db
 class Project(db.Model):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), unique=True, nullable=False)
-    description = db.Column(db.String(100), unique=False, nullable=False,)
+    name = db.Column(db.String(30), unique=True, nullable=False)
+    description = db.Column(db.String(120), unique=False, nullable=False,)
     creation_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
 
 class DocumentType(db.Model):
     __tablename__ = 'document_type'
     id = db.Column(db.Integer, primary_key=True)
     initials = db.Column(db.String(2), unique=True, nullable=False)
+    name = db.Column(db.String(30), unique=True, nullable=False)
     description = db.Column(db.String(100), nullable=False,)
+
+    def __init__(self, initials, name, description):
+        self.initials = initials
+        self.name = name
+        self.description = description
 
 class DocumentNumber(db.Model):
     __tablename__ = 'document_number'
@@ -47,7 +57,8 @@ class DocumentNumber(db.Model):
         return doc_name
 
 def project_query():
-    return Project.query.order_by(Project.id)
+    return Project.query.order_by(Project.id.desc())
 
 def doc_type_query():
-    return DocumentType.query.order_by(DocumentType.id)
+    return DocumentType.query.order_by(DocumentType.initials)
+

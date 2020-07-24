@@ -1,8 +1,8 @@
 {% extends "base.html"%}
 {% block title %}Home Page{% endblock %}
+{% block page_title %}Home Page{% endblock %}
 {% block content %}
 
-<div class="container-fluid mt-4 p-4">
     <div class="row">
         <div class="col-lg-9">
             <table class="table table-striped">
@@ -33,7 +33,7 @@
             <form method="POST" action="" autocomplete="off">
                 {{ form.hidden_tag() }}
 
-                <legend class="border-bottom mb-4">
+                <legend class="border-bottom pt-2 pb-2">
                     Create New Document Number
                 </legend>
                 <div class="form-group">
@@ -56,7 +56,6 @@
 
 
     </div>
-</div>
 
 
 
